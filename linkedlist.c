@@ -34,6 +34,27 @@ void InsEnd(int val)// Inserts Node at the end of the list
 	}
 }
 //----------------------------------------------------------------------------------
+void InsertN(int pos, int val) // inserts a node at given index (starting from 1)
+{
+	node* newNode = malloc(sizeof(node));// creating new node
+	newNode->data = val; // assigning data to new Node
+	newNode->next = NULL; 
+	if(pos == 1) // if the pos is at the beginning i.e at the head
+	{
+		newNode->next = head; // newNode store the address of the node after pos 1
+		head = newNode; // newNode becomes the head
+		return;
+	}
+	node *ptr1 = head; // temporary pointer for traversal
+	int i;
+	for(i=1;i<=pos-2;i++) // makes jumps in the linked list / traversal
+	{
+		ptr1 = ptr1->next; // traversing...
+	}
+	newNode->next = ptr1->next; // newNode store the address of the node after pos 1
+	ptr1->next = newNode; // node before pos 1 stores the address of the newNode
+}
+//----------------------------------------------------------------------------------
 void DeleteNode(int key) // deletes a node with the specified key
 {
 	node *current = head, *temp;
@@ -77,10 +98,10 @@ void Display()
 //----------------------------------------------------------------------------------------------------
 int main()
 {
-	int ch, num;
+	int ch, num, pos;
 	while(1)
 	{
-		printf("Choose\n1.InsBeg 2.InsEnd 3.DeleteNode 4.Display 5.Exit\n");
+		printf("Choose\n1.InsBeg 2.InsEnd 3.DeleteNode 4.Display 5.InsertN 6.Exit\n");
 		scanf("%d",&ch);
 		switch(ch)
 		{
@@ -99,9 +120,17 @@ int main()
 			DeleteNode(num);
 			break;
 			
-			case 4: Display();break;
+			case 4: 
+			Display();break;
 			
-			case 5: exit(0);break;
+			case 5: 
+			printf("Enter the position and value\n");
+			scanf("%d%d",&pos,&num);
+			InsertN(pos,num);
+			break;
+			
+			case 6: 
+			exit(0);break;
 		}
 	}
 	return 0;
