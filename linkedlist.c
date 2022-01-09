@@ -129,8 +129,7 @@ int main()
 			InsertN(pos,num);
 			break;
 			
-			case 6: 
-			exit(0);break;
+			case 6: exit(0);break;
 		}
 	}
 	return 0;
